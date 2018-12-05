@@ -1,1 +1,159 @@
-<p>This is the partial for view 1.</p>
+<div ng-controller="View1Ctrl" class="container">
+
+    <form ng-if="showForm" name="formAluno">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="inputNome">Nome</label>&nbsp;<span style="color: red">*</span>
+                    <input type="text" name="nome" ng-model="aluno.nome" required class="form-control" placeholder="Nome" id="inputNome">
+                    <div class="alert alert-danger" role="alert" ng-if="formAluno.nome.$touched && formAluno.nome.$invalid">
+                        Nome é obrigatório
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="inputCpf">CPF</label>
+                    <input type="text" name="cpf" ui-br-cpf-mask class="form-control" ng-model="aluno.cpf" placeholder="CPF"
+                           id="inputCpf">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="inputIdade">Idade</label>
+                    <input type="number" class="form-control" min="0" max="80" ng-model="aluno.idade" placeholder="Idade" id="inputIdade">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="inputMatricula">Matrícula</label>
+                    <input type="text" class="form-control" ng-model="aluno.matricula" placeholder="Matrícula" id="inputMatricula">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="inputDataNascimento">Data Nascimento</label>
+                    <input type="date" class="form-control" ng-model="aluno.dataNascimento" placeholder="Data Nascimento"
+                        id="inputDataNascimento">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-right">
+                <button class="btn btn-sm btn-default" ng-click="limparForm(formAluno)">
+                    <span class="fa fa-eraser"></span> Limpar</button>
+                <button class="btn btn-sm btn-primary" ng-click="salvar()" ng-if="!aluno.id" ng-disabled="formAluno.$invalid"
+                    id="btnSalvarAluno">
+                    <span class="fa fa-save"></span>&nbsp;Salvar
+                </button>
+                <button class="btn btn-sm btn-primary" ng-if="aluno.id" ng-click="atualizar()" ng-disabled="formAluno.$invalid"
+                    id="btnAtualizarAluno">
+                    <span class="fa fa-edit"></span>&nbsp;Atualizar
+                </button>
+            </div>
+        </div>
+    </form>
+    <br>
+    <div class="row">
+        <div class="col-8">
+            <h1 class="text-left">Alunos</h1>
+        </div>
+        <div class="col-4 text-right">
+            <button class="btn btn-sm btn-primary" ng-click="mostrarFiltros()" style="margin-top: 13px">
+                <span class="fa fa-filter"></span>&nbsp;Filtrar
+            </button>
+            <button class="btn btn-sm btn-success" id="btnNovoAluno" ng-if="!showForm" ng-click="mostrarForm()" style="margin-top: 13px">
+                <span class="fa fa-plus">&nbsp;Novo</span>
+            </button>
+            <button class="btn btn-sm btn-default" ng-if="showForm" ng-click="fecharForm()" style="margin-top: 13px">
+                <span class="fa fa-times">&nbsp;Fechar</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="row" ng-if="showFiltros">
+        <div class="col-10">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label class="my-1 mr-2" for="inputFilterId">Id</label>
+                    <input type="number" ng-model="filter.id" class="form-control form-control-sm my-1 mr-2" id="inputFilterId">
+                </div>
+
+                <div class="form-group">
+                    <label class="my-1 mr-2" for="inputFilterNome">Nome</label>
+                    <input type="text" ng-model="filter.nome" class="form-control form-control-sm my-1 mr-2"
+                           id="inputFilterNome">
+                </div>
+                <div class="form-group">
+                    <label for="inputFilterCpf" class="my-1 mr-2">CPF</label>
+                    <input type="text" ng-model="filter.cpf" class="form-control form-control-sm my-1 mr-2"
+                           id="inputFilterCpf">
+                </div>
+                <div class="form-group">
+                    <label for="inputFilterMatricula" class="my-1 mr-2">Matrícula</label>
+                    <input type="text" ng-model="filter.matricula" class="form-control form-control-sm my-1 mr-2"
+                           id="inputFilterMatricula">
+                </div>
+            </form>
+        </div>
+        <div class="col-2 text-right">
+            <button class="btn btn-sm btn-primary" ng-click="pesquisar()" style="margin-top: 4px">
+                <span class="fa fa-search"></span>&nbsp;Pesquisar
+            </button>
+        </div>
+    </div>
+
+    <div class="row" ng-if="alunos">
+        <div class="col-lg-12 col-md-12 col-sm-10 col-xs-10">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center">Id</th>
+                        <th>Nome</th>
+                        <th class="text-center">Idade</th>
+                        <th>CPF</th>
+                        <th>Matrícula</th>
+                        <th>Dt. Nasc.</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="aluno in alunos">
+                        <td class="text-center" ng-bind="aluno.id"></td>
+                        <td>
+                            {{aluno.nome}}
+                        </td>
+                        <td class="text-center">
+                            <p ng-if="aluno.idade > 0">{{aluno.idade}}</p>
+                        </td>
+                        <td>
+                            {{aluno.cpf}}
+                        </td>
+                        <td>
+                            {{aluno.matricula}}
+                        </td>
+                        <td>{{aluno.dataNascimento | date : 'dd/MM/yyyy'}}</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" title="Detalhes" id="btnDetalhesAluno_{{aluno.id}}">
+                                <a ng-href="#!/detalhe/{{aluno.id}}" style="color: white">
+                                    <span class="fa fa-search"></span>
+                                </a>
+                            </button>
+                            <button class="btn btn-sm btn-default" ng-click="editar(aluno)" title="Editar"
+                                    id="btnEditarAluno_{{aluno.id}}">
+                                <span class="fa fa-edit"></span>
+                            </button>&nbsp;
+                            <button class="btn btn-sm btn-danger" ng-click="deletarAluno(aluno.id)" title="Remover"
+                                    id="btnRemoverAluno_{{aluno.id}}">
+                                <span class="fa fa-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

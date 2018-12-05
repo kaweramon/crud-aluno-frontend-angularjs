@@ -7,9 +7,15 @@
   "license": "MIT",
   "dependencies": {
     "angular": "^1.7.5",
+    "angular-growl-notifications": "^2.6.0",
+    "angular-input-masks": "^4.2.1",
     "angular-loader": "^1.7.5",
     "angular-route": "^1.7.5",
-    "html5-boilerplate": "0.0.1"
+    "angular-ui-bootstrap": "^2.5.6",
+    "angular-ui-notification": "^0.3.6",
+    "font-awesome": "^4.7.0",
+    "html5-boilerplate": "0.0.1",
+    "ng-alerts": "^1.0.6"
   },
   "devDependencies": {
     "angular-mocks": "^1.7.5",

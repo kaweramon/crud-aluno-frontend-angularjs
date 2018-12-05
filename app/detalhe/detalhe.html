@@ -1,0 +1,15 @@
+<div class="card text-white border-light bg-dark mb-6" style="max-width: 30rem;">
+    <div class="card-header" id="textDetalheAlunoIdNome">
+        <h4>{{aluno.id}} - {{aluno.nome}}</h4>
+    </div>
+    <div class="card-body">
+        <p ng-if="aluno.idade" id="textDetalheAlunoIdade" class="card-text"><strong>Idade: </strong>{{aluno.idade}}</p>
+        <p ng-if="aluno.cpf" id="textDetalheAlunoCpf" class="card-text"><strong>CPF: </strong>{{aluno.cpf}}</p>
+        <p ng-if="aluno.matricula" id="textDetalheAlunoMatricula" class="card-text">
+            <strong>Matrícula: </strong>{{aluno.matricula}}
+        </p>
+        <p ng-if="aluno.dataNascimento" class="card-text" id="textDetalheAlunoDataNascimento">
+            <strong>Data Nasci.: </strong>{{aluno.dataNascimento | date: 'dd/MM/yyyy'}}
+        </p>
+    </div>
+</div>
